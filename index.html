@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HAI👋 ALDY AHMAD F. — Tarik / Transfer</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --muted2: rgba(255,255,255,.52);
+      --good:#33d69f;
+      --bad:#ff5b6e;
+      --accent:#7c5cff;
+      --accent2:#19c2ff;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 22px;
+      --danger:#ff5b6e;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 20% -10%, rgba(124,92,255,.35), transparent 55%),
+        radial-gradient(900px 500px at 90% 10%, rgba(25,194,255,.25), transparent 55%),
+        radial-gradient(900px 600px at 70% 120%, rgba(51,214,159,.14), transparent 60%),
+        linear-gradient(180deg, #070a14, var(--bg) 40%, #070a14);
+      min-height:100vh;
+    }
+    .wrap{
+      width:min(1100px, 92vw);
+      margin: 28px auto 60px;
+    }
+
+    /* Topbar */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding: 14px 16px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 34px rgba(0,0,0,.22);
+    }
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .logo{
+      width:42px;height:42px;border-radius:14px;flex:0 0 auto;
+      background:
+        radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,0) 55%),
+        linear-gradient(135deg, rgba(124,92,255,1), rgba(25,194,255,1));
+      box-shadow: 0 10px 30px rgba(124,92,255,.25);
+      border: 1px solid rgba(255,255,255,.18);
+      position:relative;
+    }
+    .logo:after{
+      content:""; position:absolute; inset:9px;
+      border-radius: 12px;
+      border: 1px dashed rgba(255,255,255,.38);
+      opacity:.65;
+    }
+    .brand h1{margin:0;font-size:14px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .brand p{margin:4px 0 0;font-size:12px;color:var(--muted2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .pill{
+      display:flex;align-items:center;gap:8px;
+      padding: 10px 12px;border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size:12px;
+      user-select:none;
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 0 4px rgba(51,214,159,.12)}
+    .btn{
+      cursor:pointer;
+      border: 1px solid rgba(255,255,255,.16);
+      background: linear-gradient(135deg, rgba(124,92,255,.22), rgba(25,194,255,.16));
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      transition: transform .08s ease, border-color .2s ease;
+      box-shadow: 0 12px 36px rgba(0,0,0,.28);
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.25)}
+    .btn:active{transform:translateY(0) scale(.98)}
+    .btn.ghost{
+      background: rgba(255,255,255,.04);
+      box-shadow:none;
+    }
+
+    /* Layout */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
+      margin-top:16px;
+    }
+    @media (max-width: 920px){
+      .grid{grid-template-columns:1fr}
+    }
+
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid var(--stroke);
+      background: var(--card);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(500px 160px at 20% 0%, rgba(124,92,255,.25), transparent 60%),
+        radial-gradient(500px 160px at 90% 30%, rgba(25,194,255,.18), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .card *{position:relative}
+    .inner{padding: 18px}
+
+    /* Account header */
+    .account{
+      padding: 18px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .label{font-size:12px;letter-spacing:.9px;color:var(--muted2);text-transform:uppercase}
+    .balance{
+      margin:6px 0 0;
+      font-size: clamp(22px, 2.8vw, 34px);
+      font-weight: 760;
+      letter-spacing:.2px;
+    }
+    .currency{color:var(--muted);font-weight:600;font-size:13px;margin-left:8px;opacity:.9}
+    .meta{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:12px}
+    .chip{
+      padding: 8px 10px;border-radius: 12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      display:flex;gap:8px;align-items:center;
+    }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: rgba(255,255,255,.78);
+    }
+    .divider{height:1px;background:rgba(255,255,255,.10);margin: 0}
+
+    /* Tabs */
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;padding: 0 18px 18px}
+    .tab{
+      cursor:pointer;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-size: 12px;
+      transition: .2s ease;
+      user-select:none;
+    }
+    .tab.active{
+      color: rgba(255,255,255,.92);
+      border-color: rgba(124,92,255,.55);
+      background: linear-gradient(135deg, rgba(124,92,255,.18), rgba(25,194,255,.10));
+      box-shadow: 0 10px 26px rgba(124,92,255,.12);
+    }
+
+    /* Form */
+    .form{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .row2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 640px){
+      .row2{grid-template-columns:1fr}
+    }
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .field label{
+      font-size:12px;
+      color: var(--muted);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .hint{color: var(--muted2); font-size:12px}
+    input, select, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      outline:none;
+      font-size: 14px;
+      transition: border-color .15s ease, background .15s ease;
+    }
+    textarea{min-height: 92px; resize: vertical}
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(25,194,255,.55);
+      background: rgba(255,255,255,.06);
+    }
+    .inline{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .mini{
+      cursor:pointer;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 12px;
+      user-select:none;
+    }
+    .mini:hover{border-color: rgba(255,255,255,.22)}
+    .mini:active{transform: scale(.98)}
+
+    /* Summary box */
+    .summary{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .sumrow{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .sumrow strong{
+      color: rgba(255,255,255,.90);
+      font-variant-numeric: tabular-nums;
+      font-weight: 740;
+    }
+    .sumrow .warn{color: rgba(255,255,255,.88)}
+    .total{
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:10px;
+    }
+    .total strong{
+      font-size: 18px;
+      color: rgba(255,255,255,.95);
+    }
+
+    /* CTA */
+    .cta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 8px;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,92,255,.32), rgba(25,194,255,.18));
+      border-color: rgba(124,92,255,.40);
+    }
+    .btn.danger{
+      background: rgba(255,91,110,.14);
+      border-color: rgba(255,91,110,.30);
+      box-shadow:none;
+    }
+
+    /* Modal */
+    .modalBack{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 50;
+    }
+    .modal{
+      width: min(520px, 94vw);
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(12,16,32,.92);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 70px rgba(0,0,0,.55);
+      overflow:hidden;
+    }
+    .modalHead{
+      padding: 14px 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .modalHead strong{font-size: 14px}
+    .x{
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+    .modalBody{padding: 16px}
+    .receipt{
+      border-radius: 18px;
+      border: 1px dashed rgba(255,255,255,.18);
+      background: rgba(255,255,255,.04);
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .receipt .r{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .receipt .r strong{color: rgba(255,255,255,.92); font-variant-numeric: tabular-nums}
+    .ok{
+      margin-top: 12px;
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+    }
+    .foot{
+      margin-top: 14px;
+      color: var(--muted2);
+      font-size: 12px;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div style="min-width:0">
+          <h1>HAI👋 ALDY AHMAD F.</h1>
+          <p>Tarik / Transfer • tampilan mirip mobile banking</p>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="pill"><span class="dot"></span><span id="clock">—</span></div>
+        <button class="btn ghost" id="toggleSaldo" type="button">Sembunyikan saldo</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left: Form -->
+      <div class="card">
+        <div class="account">
+          <div>
+            <div class="label">Saldo Tersedia</div>
+            <div class="balance" id="saldoText">21.153.837.193,81 <span class="currency">IDR</span></div>
+            <div class="meta">
+              <div class="chip">No. Rekening <span class="kbd">•••• 8842</span></div>
+              <div class="chip">Status <span class="kbd">AKTIF</span></div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="label">Keamanan</div>
+            <div style="margin-top:6px;color:rgba(255,255,255,.88);font-size:12px">PIN & OTP (simulasi)</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+
+        <div class="tabs" role="tablist" aria-label="Mode transaksi">
+          <div class="tab active" data-mode="transfer" role="tab" aria-selected="true">Transfer</div>
+          <div class="tab" data-mode="tarik" role="tab" aria-selected="false">Tarik Tunai</div>
+        </div>
+
+        <div class="inner">
+          <form class="form" id="form">
+            <div class="row2">
+              <div class="field" id="bankField">
+                <label>
+                  Bank Tujuan
+                  <span class="hint">wajib</span>
+                </label>
+                <select id="bank">
+                  <option value="BCA">BCA</option>
+                  <option value="BRI">BRI</option>
+                  <option value="BNI">BNI</option>
+                  <option value="MANDIRI">Mandiri</option>
+                  <option value="CIMB">CIMB Niaga</option>
+                  <option value="PERMATA">Permata</option>
+                  <option value="LAINNYA">Bank Lainnya</option>
+                </select>
+              </div>
+
+              <div class="field" id="jenisField">
+                <label>
+                  Jenis Transaksi
+                  <span class="hint">auto</span>
+                </label>
+                <input id="jenis" type="text" value="Transfer Antar Bank" readonly />
+              </div>
+            </div>
+
+            <div class="row2" id="transferFields">
+              <div class="field">
+                <label>Nomor Rekening Tujuan <span class="hint">wajib</span></label>
+                <input id="rek" inputmode="numeric" placeholder="contoh: 1234567890" />
+                <div class="inline">
+                  <div class="mini" data-fill="rek" data-value="1234567890">Pakai contoh</div>
+                  <div class="mini" id="btnPasteRek">Paste</div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>Nama Penerima <span class="hint">wajib</span></label>
+                <input id="nama" placeholder="contoh: RIZKY PRATAMA" />
+                <div class="inline">
+                  <div class="mini" data-fill="nama" data-value="RIZKY PRATAMA">Pakai contoh</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row2">
+              <div class="field">
+                <label>Nominal (IDR) <span class="hint">wajib</span></label>
+                <input id="nominal" inputmode="decimal" placeholder="contoh: 500000" />
+                <div class="inline">
+                  <div class="mini" data-amt="100000">100.000</div>
+                  <div class="mini" data-amt="500000">500.000</div>
+                  <div class="mini" data-amt="1000000">1.000.000</div>
+                  <div class="mini" data-amt="10000000">10.000.000</div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>Catatan (opsional) <span class="hint">opsional</span></label>
+                <input id="catatan" placeholder="contoh: pembayaran" />
+              </div>
+            </div>
+
+            <div class="field" id="tarikFields" style="display:none">
+              <label>Kode Tarik Tunai <span class="hint">auto</span></label>
+              <input id="kodeTarik" type="text" value="—" readonly />
+              <div class="hint">Kode akan muncul setelah konfirmasi (simulasi).</div>
+            </div>
+
+            <div class="summary" aria-live="polite">
+              <div class="sumrow"><span>Saldo tersedia</span><strong id="sumSaldo">21.153.837.193,81</strong></div>
+              <div class="sumrow"><span>Biaya admin</span><strong id="sumFee">0,00</strong></div>
+              <div class="sumrow"><span>Nominal</span><strong id="sumNominal">0,00</strong></div>
+              <div class="total">
+                <span class="label" style="text-transform:none;letter-spacing:.2px">Total dipotong</span>
+                <strong id="sumTotal">0,00</strong>
+              </div>
+              <div class="hint" id="warn" style="display:none;color:rgba(255,91,110,.95)">
+                Nominal melebihi saldo.
+              </div>
+            </div>
+
+            <div class="cta">
+              <button class="btn primary" id="btnKirim" type="submit">Lanjutkan</button>
+              <button class="btn ghost" id="btnReset" type="button">Reset</button>
+              <button class="btn danger" id="btnBatal" type="button">Batal</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right: Preview + Info -->
+      <div class="card">
+        <div class="inner">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px">
+            <div>
+              <div class="label">Preview transaksi</div>
+              <div style="margin-top:6px;color:rgba(255,255,255,.90);font-weight:720">Ringkasan sebelum konfirmasi</div>
+            </div>
+            <button class="btn ghost" id="btnDemo" type="button">Isi otomatis</button>
+          </div>
+
+          <div class="receipt" id="preview">
+            <div class="r"><span>Mode</span><strong id="pMode">Transfer</strong></div>
+            <div class="r"><span>Bank</span><strong id="pBank">BCA</strong></div>
+            <div class="r"><span>Rekening</span><strong id="pRek">—</strong></div>
+            <div class="r"><span>Penerima</span><strong id="pNama">—</strong></div>
+            <div class="r"><span>Nominal</span><strong id="pNominal">0,00</strong></div>
+            <div class="r"><span>Admin</span><strong id="pFee">0,00</strong></div>
+            <div class="r"><span>Total</span><strong id="pTotal">0,00</strong></div>
+            <div class="r"><span>Catatan</span><strong id="pCatatan">—</strong></div>
+          </div>
+
+          <div style="margin-top:14px" class="summary">
+            <div class="sumrow"><span>Tips</span><strong class="warn">Cek nomor tujuan</strong></div>
+            <div class="hint">
+              Ini tampilan simulasi. Tidak mengirim transaksi sungguhan.
+            </div>
+          </div>
+
+          <div class="foot">© Simulasi UI Tarik/Transfer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Konfirmasi -->
+  <div class="modalBack" id="modalBack" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modalHead">
+        <strong id="modalTitle">Konfirmasi Transaksi</strong>
+        <button class="x" id="btnClose" type="button">Tutup</button>
+      </div>
+      <div class="modalBody">
+        <div class="receipt" id="receipt">
+          <div class="r"><span>ID Transaksi</span><strong id="rId">—</strong></div>
+          <div class="r"><span>Waktu</span><strong id="rTime">—</strong></div>
+          <div class="r"><span>Mode</span><strong id="rMode">—</strong></div>
+          <div class="r"><span>Tujuan</span><strong id="rTo">—</strong></div>
+          <div class="r"><span>Nominal</span><strong id="rNominal">—</strong></div>
+          <div class="r"><span>Admin</span><strong id="rFee">—</strong></div>
+          <div class="r"><span>Total</span><strong id="rTotal">—</strong></div>
+          <div class="r" id="rKodeWrap" style="display:none"><span>Kode Tarik</span><strong id="rKode">—</strong></div>
+          <div class="r"><span>Saldo sisa</span><strong id="rLeft">—</strong></div>
+        </div>
+
+        <div class="ok">
+          <button class="btn ghost" id="btnCopy" type="button">Copy struk</button>
+          <button class="btn primary" id="btnSelesai" type="button">Selesai</button>
+        </div>
+
+        <div class="hint" style="margin-top:10px;color:rgba(255,255,255,.55)">
+          *PIN/OTP tidak dibuat beneran — ini UI simulasi saja.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Base state =====
+    const state = {
+      saldo: 21153837193.81,
+      showSaldo: true,
+      mode: "transfer", // transfer | tarik
+      feeTransfer: 6500,  // simulasi biaya admin antar bank
+      feeTarik: 0,
+    };
+
+    // ===== Helpers =====
+    const fmtIDR = (n) => {
+      const fixed = Number(n).toFixed(2);
+      const [intPart, decPart] = fixed.split(".");
+      const withDots = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return `${withDots},${decPart}`;
+    };
+
+    const parseNominal = (s) => {
+      if(!s) return 0;
+      // izinkan user input "1.000.000" atau "1000000" atau "1,5"
+      const cleaned = String(s)
+        .replace(/\./g,"")
+        .replace(/,/g,".")
+        .replace(/[^\d.]/g,"");
+      const v = Number(cleaned);
+      return Number.isFinite(v) ? v : 0;
+    };
+
+    const pad2 = (x) => String(x).padStart(2,"0");
+    const nowClock = () => {
+      const d = new Date();
+      return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
+    };
+
+    const txnId = () => {
+      const d = new Date();
+      const a = Math.floor(Math.random()*900000 + 100000);
+      return `TX-${d.getFullYear()}${pad2(d.getMonth()+1)}${pad2(d.getDate())}-${a}`;
+    };
+
+    const kodeTarik = () => String(Math.floor(Math.random()*900000 + 100000));
+
+    // ===== Elements =====
+    const el = (id) => document.getElementById(id);
+
+    const $clock = el("clock");
+    const $saldoText = el("saldoText");
+    const $toggleSaldo = el("toggleSaldo");
+
+    const $bank = el("bank");
+    const $jenis = el("jenis");
+
+    const $rek = el("rek");
+    const $nama = el("nama");
+    const $nominal = el("nominal");
+    const $catatan = el("catatan");
+
+    const $transferFields = el("transferFields");
+    const $tarikFields = el("tarikFields");
+    const $kodeTarik = el("kodeTarik");
+    const $bankField = el("bankField");
+    const $jenisField = el("jenisField");
+
+    const $sumSaldo = el("sumSaldo");
+    const $sumFee = el("sumFee");
+    const $sumNominal = el("sumNominal");
+    const $sumTotal = el("sumTotal");
+    const $warn = el("warn");
+
+    const $pMode = el("pMode");
+    const $pBank = el("pBank");
+    const $pRek = el("pRek");
+    const $pNama = el("pNama");
+    const $pNominal = el("pNominal");
+    const $pFee = el("pFee");
+    const $pTotal = el("pTotal");
+    const $pCatatan = el("pCatatan");
+
+    const $modalBack = el("modalBack");
+    const $btnClose = el("btnClose");
+    const $btnSelesai = el("btnSelesai");
+    const $btnCopy = el("btnCopy");
+
+    // Receipt fields
+    const $rId = el("rId");
+    const $rTime = el("rTime");
+    const $rMode = el("rMode");
+    const $rTo = el("rTo");
+    const $rNominal = el("rNominal");
+    const $rFee = el("rFee");
+    const $rTotal = el("rTotal");
+    const $rLeft = el("rLeft");
+    const $rKodeWrap = el("rKodeWrap");
+    const $rKode = el("rKode");
+
+    // ===== UI updates =====
+    function renderSaldo(){
+      $saldoText.innerHTML = state.showSaldo
+        ? `${fmtIDR(state.saldo)} <span class="currency">IDR</span>`
+        : `•••••••••••• <span class="currency">IDR</span>`;
+      $sumSaldo.textContent = state.showSaldo ? fmtIDR(state.saldo) : "••••••••••••";
+      $toggleSaldo.textContent = state.showSaldo ? "Sembunyikan saldo" : "Tampilkan saldo";
+    }
+
+    function feeForMode(){
+      return state.mode === "transfer" ? state.feeTransfer : state.feeTarik;
+    }
+
+    function renderMode(){
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      document.querySelector(`.tab[data-mode="${state.mode}"]`).classList.add("active");
+
+      if(state.mode === "transfer"){
+        $jenis.value = "Transfer Antar Bank";
+        $transferFields.style.display = "";
+        $tarikFields.style.display = "none";
+        $bankField.style.display = "";
+        $jenisField.style.display = "";
+        $pMode.textContent = "Transfer";
+        $pBank.textContent = $bank.value;
+      }else{
+        $jenis.value = "Tarik Tunai (Tanpa Kartu)";
+        $transferFields.style.display = "none";
+        $tarikFields.style.display = "";
+        $bankField.style.display = "none"; // tarik tunai ga perlu bank tujuan
+        $jenisField.style.display = "none";
+        $pMode.textContent = "Tarik Tunai";
+        $pBank.textContent = "—";
+        $pRek.textContent = "—";
+        $pNama.textContent = "—";
+      }
+      recalc();
+      updatePreview();
+    }
+
+    function updatePreview(){
+      $pBank.textContent = (state.mode === "transfer") ? $bank.value : "—";
+      $pRek.textContent = (state.mode === "transfer") ? ($rek.value.trim() || "—") : "—";
+      $pNama.textContent = (state.mode === "transfer") ? ($nama.value.trim() || "—") : "—";
+      $pCatatan.textContent = ($catatan.value.trim() || "—");
+
+      const n = parseNominal($nominal.value);
+      const fee = feeForMode();
+      const total = Math.max(0, n + fee);
+
+      $pNominal.textContent = fmtIDR(n);
+      $pFee.textContent = fmtIDR(fee);
+      $pTotal.textContent = fmtIDR(total);
+    }
+
+    function recalc(){
+      const n = parseNominal($nominal.value);
+      const fee = feeForMode();
+      const total = Math.max(0, n + fee);
+
+      $sumFee.textContent = fmtIDR(fee);
+      $sumNominal.textContent = fmtIDR(n);
+      $sumTotal.textContent = fmtIDR(total);
+
+      const over = total > state.saldo && n > 0;
+      $warn.style.display = over ? "" : "none";
+      el("btnKirim").disabled = over;
+      el("btnKirim").style.opacity = over ? .6 : 1;
+      el("btnKirim").style.cursor = over ? "not-allowed" : "pointer";
+
+      updatePreview();
+    }
+
+    // ===== Actions =====
+    $toggleSaldo.addEventListener("click", () => {
+      state.showSaldo = !state.showSaldo;
+      renderSaldo();
+    });
+
+    document.querySelectorAll(".tab").forEach(t => {
+      t.addEventListener("click", () => {
+        state.mode = t.dataset.mode;
+        renderMode();
+      });
+    });
+
+    $bank.addEventListener("change", () => {
+      // fee contoh: beda biaya kalau "Bank Lainnya"
+      state.feeTransfer = ($bank.value === "LAINNYA") ? 10000 : 6500;
+      recalc();
+      updatePreview();
+    });
+
+    [$rek, $nama, $nominal, $catatan].forEach(inp => inp.addEventListener("input", recalc));
+
+    // Quick fill buttons
+    document.querySelectorAll(".mini[data-amt]").forEach(b => {
+      b.addEventListener("click", () => {
+        $nominal.value = b.dataset.amt;
+        recalc();
+      });
+    });
+    document.querySelectorAll(".mini[data-fill]").forEach(b => {
+      b.addEventListener("click", () => {
+        const target = b.dataset.fill;
+        el(target).value = b.dataset.value;
+        recalc();
+      });
+    });
+
+    // Paste rekening
+    el("btnPasteRek").addEventListener("click", async () => {
+      try{
+        const txt = await navigator.clipboard.readText();
+        if(txt) $rek.value = txt.trim();
+        recalc();
+      }catch(e){
+        alert("Clipboard tidak diizinkan di browser ini. Coba paste manual ya.");
+      }
+    });
+
+    // Demo auto-fill
+    el("btnDemo").addEventListener("click", () => {
+      state.mode = "transfer";
+      renderMode();
+      $bank.value = "BCA";
+      state.feeTransfer = 6500;
+      $rek.value = "1234567890";
+      $nama.value = "RIZKY PRATAMA";
+      $nominal.value = "500000";
+      $catatan.value = "Pembayaran";
+      recalc();
+    });
+
+    // Reset & Batal
+    el("btnReset").addEventListener("click", () => {
+      $rek.value = ""; $nama.value = ""; $nominal.value = ""; $catatan.value = "";
+      $kodeTarik.value = "—";
+      recalc();
+    });
+    el("btnBatal").addEventListener("click", () => {
+      if(confirm("Batalkan transaksi?")){
+        $rek.value = ""; $nama.value = ""; $nominal.value = ""; $catatan.value = "";
+        $kodeTarik.value = "—";
+        recalc();
+      }
+    });
+
+    // Submit (Konfirmasi) — SIMULASI
+    el("form").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const n = parseNominal($nominal.value);
+      const fee = feeForMode();
+      const total = n + fee;
+
+      if(n <= 0){
+        alert("Nominal belum diisi.");
+        return;
+      }
+
+      if(state.mode === "transfer"){
+        if(!$rek.value.trim() || !$nama.value.trim()){
+          alert("Nomor rekening & nama penerima wajib diisi.");
+          return;
+        }
+      }
+
+      if(total > state.saldo){
+        alert("Nominal melebihi saldo.");
+        return;
+      }
+
+      // generate kode tarik kalau mode tarik
+      let kode = "";
+      if(state.mode === "tarik"){
+        kode = kodeTarik();
+        $kodeTarik.value = kode;
+      }
+
+      // tampilkan modal struk (saldo tidak benar-benar dipotong, tapi kita tampilkan saldo sisa simulasi)
+      const left = state.saldo - total;
+
+      $rId.textContent = txnId();
+      $rTime.textContent = new Date().toLocaleString("id-ID");
+      $rMode.textContent = (state.mode === "transfer") ? "Transfer" : "Tarik Tunai";
+      $rTo.textContent = (state.mode === "transfer")
+        ? `${$bank.value} • ${$rek.value.trim()} • ${$nama.value.trim()}`
+        : "Tarik Tunai (Tanpa Kartu)";
+      $rNominal.textContent = fmtIDR(n);
+      $rFee.textContent = fmtIDR(fee);
+      $rTotal.textContent = fmtIDR(total);
+      $rLeft.textContent = fmtIDR(left);
+
+      if(state.mode === "tarik"){
+        $rKodeWrap.style.display = "";
+        $rKode.textContent = kode;
+      }else{
+        $rKodeWrap.style.display = "none";
+        $rKode.textContent = "—";
+      }
+
+      $modalBack.style.display = "flex";
+    });
+
+    function closeModal(){ $modalBack.style.display = "none"; }
+    $btnClose.addEventListener("click", closeModal);
+    $btnSelesai.addEventListener("click", closeModal);
+    $modalBack.addEventListener("click", (e) => { if(e.target === $modalBack) closeModal(); });
+
+    $btnCopy.addEventListener("click", async () => {
+      const text = [
+        `STRUK TRANSAKSI`,
+        `ID: ${$rId.textContent}`,
+        `Waktu: ${$rTime.textContent}`,
+        `Mode: ${$rMode.textContent}`,
+        `Tujuan: ${$rTo.textContent}`,
+        `Nominal: ${$rNominal.textContent}`,
+        `Admin: ${$rFee.textContent}`,
+        `Total: ${$rTotal.textContent}`,
+        ($rKodeWrap.style.display !== "none") ? `Kode Tarik: ${$rKode.textContent}` : ``,
+        `Saldo sisa: ${$rLeft.textContent}`,
+      ].filter(Boolean).join("\n");
+
+      try{
+        await navigator.clipboard.writeText(text);
+        alert("Struk berhasil di-copy!");
+      }catch(e){
+        alert("Gagal copy otomatis. Coba blok teks manual ya.");
+      }
+    });
+
+    // Clock
+    setInterval(() => { $clock.textContent = `Live • ${nowClock()}`; }, 250);
+
+    // Init
+    $clock.textContent = `Live • ${nowClock()}`;
+    renderSaldo();
+    renderMode();
+    recalc();
+  </script>
+</body>
+</html>
